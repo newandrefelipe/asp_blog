@@ -6,7 +6,7 @@ Blog developed with ASP Classic and SQLite database.
 
 1. Install the ODBC SQLite Driver available [here](http://www.ch-werner.de/sqliteodbc/).
 2. I installed the 32 bit version (file sqliteodbc.exe).
-3. Setting the site on IIS.
+3. Configure the site on IIS.
 
 ## Usage
 

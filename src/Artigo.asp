@@ -2,9 +2,11 @@
 <%
 Class Artigo
     Private conexao
+    Private TOTAL_POR_PAGINA ' Total de artigos mostrados por pagina
     
     Private Sub Class_Initialize()
         Set conexao = openConnection()
+        TOTAL_POR_PAGINA = 10
     End Sub
 
     Private Sub Class_Terminate()
@@ -160,7 +162,6 @@ Class Artigo
         Dim rs
         
         sql = "SELECT t.id as tag_id, t.nome as tag_nome FROM artigo_tag at, tag t WHERE at.artigo_id = " & idArtigo & " AND at.tag_id = t.id"
-        ' Response.Write sql & "<br>"
         Set rs = conexao.Execute(sql)
 
         Do While Not rs.EOF
@@ -170,6 +171,68 @@ Class Artigo
             rs.MoveNext
         Loop
 
+    End Sub
+
+    Public Sub listarPaginado(pagina)
+        Dim rs
+        Dim sql
+        Dim paginaInicial
+
+        ' Paginacao
+        pagina = pagina - 1
+        paginaInicial = TOTAL_POR_PAGINA * pagina
+
+        Set rs = Server.CreateObject("ADODB.RecordSet")
+        sql = "SELECT id, titulo, preview FROM artigo ORDER BY id DESC LIMIT " & paginaInicial & ", " & TOTAL_POR_PAGINA
+        rs.Open sql, conexao
+        
+        Do While Not rs.EOF
+            Response.Write "<div class='border-artigo mb-4'>"
+            Response.Write "<h2>"
+            Response.Write "<a href='artigo.asp?id=" & rs("id") & "'>"
+            Response.Write rs("titulo")
+            Response.Write "</a>"
+            Response.Write "</h2>"
+            Response.Write "<p>"
+            Response.Write rs("preview")
+            Response.Write "</p>"
+            Response.Write "</div>"
+            rs.MoveNext
+        Loop
+        rs.Close
+    End Sub
+
+    Public Sub mostrarPaginas(paginaAtual)
+        Dim rs
+        Dim sql
+        Dim totalRegistros
+        Dim quantidadePaginas
+        Dim possuiPaginaExtra ' Se Total Registros / Total por Pagina <> 0
+        Dim resto
+        Dim classePaginaAtual
+
+        sql = "SELECT COUNT(id) AS total FROM artigo"
+        Set rs = Server.CreateObject("ADODB.RecordSet")
+        rs.Open sql, conexao
+
+        totalRegistros = rs("total")
+
+        quantidadePaginas = totalRegistros / TOTAL_POR_PAGINA
+        resto = totalRegistros Mod TOTAL_POR_PAGINA
+        
+        If resto <> 0 Then
+            quantidadePaginas = CInt(quantidadePaginas) + 1
+        End if
+
+        For i = 1 To quantidadePaginas
+            If i = CInt(paginaAtual) Then
+                classePaginaAtual = "pagina-atual"
+            End If
+            Response.Write "<a href='/?pagina=" & i & "' class='badge badge-pill badge-primary " & classePaginaAtual & "'>" & i & "</a>&nbsp;"
+            classePaginaAtual = ""
+        Next
+
+        rs.Close
     End Sub
 
 End Class

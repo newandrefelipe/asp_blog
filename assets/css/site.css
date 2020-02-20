@@ -58,3 +58,7 @@ h2 {
   font-size: 1.4em;
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
 }
+
+.pagina-atual {
+  color: rgb(255, 145, 0);
+}

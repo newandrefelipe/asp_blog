@@ -25,5 +25,5 @@ Set objArtigoShow = objArtigo.encontrarPorId(Request.QueryString("id"))
     </div>
     <% End If %>
 </div>
-<a href="/" class="btn btn-primary mt-2">Voltar</a>
+<button onclick="goBack()" class="btn btn-primary mt-2">Voltar</button>
 <!-- #include file="src/html_footer.asp" -->
