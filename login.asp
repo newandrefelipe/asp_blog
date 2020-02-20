@@ -21,7 +21,7 @@ Function efetuarLogin(login, senha)
     login_ok = "NOK"
     Set conexao = openConnection()
 
-    sql = "SELECT * FROM usuario WHERE login = '" & login & "' AND senha = '" & senha & "'"
+    sql = "SELECT * FROM usuario WHERE login_ = '" & login & "' AND senha = '" & senha & "'"
     rs = conexao.Execute(sql)
 
     If Not IsNull(rs("id")) Then

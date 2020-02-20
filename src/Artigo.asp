@@ -215,7 +215,7 @@ Class Artigo
         Set rs = Server.CreateObject("ADODB.RecordSet")
         rs.Open sql, conexao
 
-        totalRegistros = rs("total")
+        totalRegistros = CInt(rs("total"))
 
         quantidadePaginas = totalRegistros / TOTAL_POR_PAGINA
         resto = totalRegistros Mod TOTAL_POR_PAGINA
