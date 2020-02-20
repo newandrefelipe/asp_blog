@@ -25,6 +25,9 @@ Set objTag = New Tag
 %>
 <!-- #include file="../../src/html_header.asp" -->
   <h1>Editar Artigo</h1>
+  <div id="error-messages" class="alert alert-danger d-none" role="alert">
+    Atenção: existem campos obrigatórios que não foram preenchidos.
+  </div>
   <form action="editar-artigo.asp" method="post">
     <div class="form-group">
       <label for="titulo">Título do artigo:</label>
@@ -67,10 +70,26 @@ Set objTag = New Tag
 
     <div class="form-group">
       <input type="hidden" name="id" value="<%=objArtigoShow("id")%>" />
-      <button class="btn btn-primary mt-2">Editar Artigo</button>
+      <button id="btn-publicar" class="btn btn-primary mt-2">Editar Artigo</button>
     </div>
     <div class="form-group">
       <a href="/admin/artigo">Voltar</a>
     </div>
   </form>
+  <script>
+    let btnPublicar = document.querySelector("#btn-publicar");
+    let errorMessages = document.querySelector("#error-messages");
+
+    btnPublicar.addEventListener("click", function(e) {
+      let formTitulo = document.querySelector("#titulo").value;
+      let formPreview = document.querySelector("#preview").value;
+
+      if (formTitulo.trim() == "" || formPreview.trim() == "") {
+        e.preventDefault();
+        errorMessages.classList.remove("d-none");
+        window.scrollTo(0, 0);
+        return;
+      }  
+    });
+  </script>
 <!-- #include file="../../src/html_footer.asp" -->
