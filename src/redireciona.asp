@@ -9,7 +9,4 @@ Sub redireciona404(url)
     Response.Status = "404 File Not Found"
     Response.End
 End Sub
-
-
-
 %>

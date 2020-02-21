@@ -1,3 +1,4 @@
+<!-- #include file="src/senha.asp" -->
 <!-- #include file="config/config.asp" -->
 <!-- #include file="src/redireciona.asp" -->
 <%
@@ -12,20 +13,22 @@ Dim login
 Dim senha
 
 Function efetuarLogin(login, senha)
-
     Dim rs
     Dim sql
     Dim conexao
     Dim login_ok
+    Dim senha_md5
 
-    login_ok = "NOK"
+    senha_md5 = Hash("md5", senha)
+    login_ok = False
     Set conexao = openConnection()
 
-    sql = "SELECT * FROM usuario WHERE login_ = '" & login & "' AND senha = '" & senha & "'"
-    rs = conexao.Execute(sql)
+    sql = "SELECT * FROM usuario WHERE login_ = '" & login & "' AND senha = '" & senha_md5 & "'"
+    Set rs = conexao.Execute(sql)
 
-    If Not IsNull(rs("id")) Then
-        login_ok = "OK"
+    ' Se encontrou usuario, o login esta OK
+    If Not rs.EOF And Not rs.BOF Then
+        login_ok = True
     End If
 
     ' rs.Close()
@@ -42,7 +45,7 @@ If metodo = "POST" Then
     senha = Request.Form("password")
     is_login_ok = efetuarLogin(login, senha)
 
-    If is_login_ok = "OK" Then
+    If is_login_ok = True Then
         Session("login") = Request.Form("login")
         Response.Redirect("/admin")
         Response.End
@@ -60,7 +63,7 @@ End If
             </div>
             <div class="form-group">
                 <label for="password">Senha:</label>
-                <input type="password" name="password" id="password" class="form-control" value="adm">
+                <input type="password" name="password" id="password" class="form-control">
             </div>
             <button class="btn btn-primary">Login</button>
         </form>

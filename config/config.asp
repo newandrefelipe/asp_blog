@@ -8,6 +8,7 @@ Function openConnection()
 
     ' MySQL
     conn.Open("Driver={MySQL ODBC 8.0 ANSI Driver};Server=localhost;Database=asp_blog;User=root;Password=root;Option=3;")
+    
     Set openConnection = conn
 End Function
 %>
