@@ -1,12 +1,13 @@
 # ASP Blog
 
-Blog developed with ASP Classic and SQLite database.
+Blog developed in ASP Classic and MySQL/SQLite databases.
 
 ## Installation
 
-1. Install the ODBC SQLite Driver available [here](http://www.ch-werner.de/sqliteodbc/).
-2. I installed the 32 bit version (file sqliteodbc.exe).
-3. Configure the site on IIS.
+1. Install the ODBC SQLite Driver available on database/sqlite. I installed the 32 bit version (file sqliteodbc.exe).
+2. Or install the ODBC MySQL Driver available on database/mysql.
+3. You need to configure the ODBC Driver on Windows. On Start Menu, type "ODBC". Select "ODBC Data Sources (32 bit)". On "System DNS" tab, click in "Add", select "MySQL ODBC 8.0 ANSI Driver". Fill in the fields "TCP / IP Server", "User" and "Password". "Database" is not necessary.
+4. Configure the site on IIS.
 
 ## Usage
 

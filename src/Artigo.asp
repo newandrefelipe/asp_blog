@@ -18,7 +18,7 @@ Class Artigo
         Dim sql_insert
         Dim ultimo_numero
 
-        sql = "INSERT INTO artigo (titulo, conteudo, versiculo, preview) VALUES('" & titulo & "', '" & conteudo & "', '" & versiculo & "', '" & preview & "')"
+        sql = "INSERT INTO artigo (titulo, conteudo, versiculo, preview, data_criacao) VALUES('" & titulo & "', '" & conteudo & "', '" & versiculo & "', '" & preview & "', NOW())"
         conexao.Execute(sql)
 
         ultimo_numero = buscaUltimoNumero()
@@ -140,7 +140,7 @@ Class Artigo
         Dim sql
         Dim sql_insert_tag
 
-        sql = "UPDATE artigo SET titulo = '" & titulo & "', conteudo = '" & conteudo & "', versiculo = '" & versiculo & "', preview = '" & preview & "' WHERE id = " & id
+        sql = "UPDATE artigo SET titulo = '" & titulo & "', conteudo = '" & conteudo & "', versiculo = '" & versiculo & "', preview = '" & preview & "', data_atualizacao = NOW() WHERE id = " & id
         conexao.Execute(sql)
 
         ' Remove todas as tags do artigo
