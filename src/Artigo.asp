@@ -54,14 +54,21 @@ Class Artigo
         Set rs = conexao.Execute(sql)
         
         Response.Write "<table class='table table-bordered table-striped table-hover'>"
+        Response.Write "<thead>"
+        Response.Write "<tr><th>Id</th><th>Título</th><th>Criação</th><th>Atualização</th><th></th></tr>"
+        Response.Write "</thead>"
+        Response.Write "<tbody>"
         Do While Not rs.EOF
             Response.Write "<tr>"
             Response.Write "<td>" & rs("id") & "</td>"
             Response.Write "<td><a href='editar-artigo.asp?id=" & rs("id") & "'>" & rs("titulo") & "</a></td>"
+            Response.Write "<td>" & Mid(rs("data_criacao"), 1, 10) & "</td>"
+            Response.Write "<td>" & Mid(rs("data_atualizacao"), 1, 10) & "</td>"
             Response.Write "<td>" & "<a href='excluir-artigo.asp?id=" & rs("id") & "' class='btn btn-danger'>Remover</a>" & "</td>"
             Response.Write "</tr>"
             rs.MoveNext
         Loop
+        Response.Write "</tbody>"
         Response.Write "</table>"
 
     End Function

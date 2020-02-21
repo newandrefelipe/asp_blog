@@ -38,6 +38,10 @@ Class Tag
         Set rs = conexao.Execute(sql)
         
         Response.Write "<table class='table table-bordered table-striped table-hover'>"
+        Response.Write "<thead>"
+        Response.Write "<tr><th>Id</th><th>Nome</th><th></th></tr>"
+        Response.Write "</thead>"
+        Response.Write "<tbody>"
         Do While Not rs.EOF
             Response.Write "<tr>"
             Response.Write "<td>" & rs("id") & "</td>"
@@ -46,6 +50,7 @@ Class Tag
             Response.Write "</tr>"
             rs.MoveNext
         Loop
+        Response.Write "</tbody>"
         Response.Write "</table>"
     End Sub
 
