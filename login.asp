@@ -31,7 +31,7 @@ Function efetuarLogin(login, senha)
         login_ok = True
     End If
 
-    ' rs.Close()
+    rs.Close()
     conexao.Close()
 
     ' Return
