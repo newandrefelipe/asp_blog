@@ -13,7 +13,7 @@
 
         <div class="float-left">
           <a class="navbar-brand" href="/">Home</a>
-          <a class="navbar-brand" href="/artigo.asp?id=7">Sobre</a>
+          <a class="navbar-brand" href="/artigo.asp?id=2">Sobre</a>
         </div>
 
         <%

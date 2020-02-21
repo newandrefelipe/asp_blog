@@ -99,25 +99,41 @@ Class Artigo
 
         sql = "SELECT id, titulo, conteudo, versiculo, preview FROM artigo WHERE id = " & id
 
-        rs = conexao.Execute(sql)
+        ' rs = conexao.Execute(sql)
+        Set rs = Server.CreateObject("ADODB.RecordSet")
+        rs.Open sql, conexao
+
         Set artigoEncontrado = Server.CreateObject("Scripting.Dictionary")
-        artigoEncontrado("id") = rs("id")
-        artigoEncontrado("titulo") = rs("titulo")
-        artigoEncontrado("conteudo") = rs("conteudo")
-        artigoEncontrado("versiculo") = rs("versiculo")
-        artigoEncontrado("preview") = rs("preview")
 
-        sql_tag = "SELECT t.id FROM tag t, artigo_tag at WHERE at.artigo_id = " & id & " AND t.id = at.tag_id"
-        Set rs_tag = Server.CreateObject("ADODB.recordset")
-        rs_tag.Open sql_tag, conexao
+        registroEncontrado = False
 
-        Do While Not rs_tag.EOF
-            artigoEncontrado("tag") = rs_tag("id")
-            rs_tag.MoveNext
+        Do While Not rs.EOF
+            registroEncontrado = True
+            artigoEncontrado("id") = rs("id")
+            artigoEncontrado("titulo") = rs("titulo")
+            artigoEncontrado("conteudo") = rs("conteudo")
+            artigoEncontrado("versiculo") = rs("versiculo")
+            artigoEncontrado("preview") = rs("preview")
+
+            sql_tag = "SELECT t.id FROM tag t, artigo_tag at WHERE at.artigo_id = " & id & " AND t.id = at.tag_id"
+            Set rs_tag = Server.CreateObject("ADODB.recordset")
+            rs_tag.Open sql_tag, conexao
+
+            Do While Not rs_tag.EOF
+                artigoEncontrado("tag") = rs_tag("id")
+                rs_tag.MoveNext
+            Loop
+            rs.MoveNext
         Loop
-
-        Set encontrarPorId = artigoEncontrado
-
+        
+        If registroEncontrado = True Then
+            ' Return
+            Set encontrarPorId = artigoEncontrado
+        Else
+            ' Se nao encontrado
+            artigoEncontrado("id") = "NOK"
+            Set encontrarPorId = artigoEncontrado
+        End If
     End Function
 
     Public Sub editar(id, titulo, conteudo, versiculo, preview, tag)
