@@ -24,7 +24,8 @@ Function efetuarLogin(login, senha)
     Set conexao = openConnection()
 
     sql = "SELECT * FROM usuario WHERE login_ = '" & login & "' AND senha = '" & senha_md5 & "'"
-    Set rs = conexao.Execute(sql)
+    Set rs = Server.CreateObject("ADODB.RecordSet")
+    rs.Open sql, conexao
 
     ' Se encontrou usuario, o login esta OK
     If Not rs.EOF And Not rs.BOF Then
@@ -32,7 +33,9 @@ Function efetuarLogin(login, senha)
     End If
 
     rs.Close()
+    Set rs = Nothing
     conexao.Close()
+    Set conexao = Nothing
 
     ' Return
     efetuarLogin = login_ok

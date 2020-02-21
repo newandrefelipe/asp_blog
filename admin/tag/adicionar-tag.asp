@@ -23,7 +23,7 @@ End If
       </div>
       <form action="adicionar-tag.asp" method="post">
         <div class="form-group">
-          <label for="nome">Nome da Tag:</label>
+          <label for="nome">Nome da Tag*:</label>
           <input type="text" class="form-control" name="nome" id="nome" autofocus />
         </div>
         <div class="form-group">

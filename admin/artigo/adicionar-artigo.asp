@@ -32,7 +32,7 @@ Set objTag = New Tag
           <input type="text" class="form-control" name="titulo" id="titulo" autofocus />
         </div>
         <div class="form-group">
-          <label for="preview">Preview do artigo:</label>
+          <label for="preview">Preview do artigo*:</label>
           <input type="text" class="form-control" name="preview" id="preview">
         </div>
         <div class="form-group">

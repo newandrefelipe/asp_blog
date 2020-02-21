@@ -11,6 +11,7 @@ Class Artigo
 
     Private Sub Class_Terminate()
         conexao.Close()
+        Set conexao = Nothing
     End Sub
 
     Public Sub adicionar(titulo, conteudo, versiculo, preview, tag)
@@ -24,10 +25,10 @@ Class Artigo
         ultimo_numero = buscaUltimoNumero()
 
         ' Se artigo possui tag
-        ' TODO: Extrair para uma funcao
         If Not Trim(tag) = "" Then
-            sql_insert = "INSERT INTO artigo_tag (artigo_id, tag_id) VALUES(" & ultimo_numero & ", " & tag & ")"
-            conexao.Execute(sql_insert)
+            relacionaArtigoTag ultimo_numero, tag
+            ' sql_insert = "INSERT INTO artigo_tag (artigo_id, tag_id) VALUES(" & ultimo_numero & ", " & tag & ")"
+            ' conexao.Execute(sql_insert)
         End If
 
     End Sub
@@ -38,20 +39,25 @@ Class Artigo
         Dim ultimo_numero
 
         sql = "SELECT id FROM artigo ORDER BY id DESC LIMIT 1"
-        rs = conexao.Execute(sql)
+        Set rs = Server.CreateObject("ADODB.RecordSet")
+        rs.Open sql, conexao
 
         ultimo_numero = rs("id")
+
+        rs.Close()
+        Set rs = Nothing
 
         ' Return
         buscaUltimoNumero = ultimo_numero
     End Function
 
-    Public Function exibirTodosADM()
+    Public Sub exibirTodosADM()
         Dim rs
         Dim sql
 
         sql = "SELECT * FROM artigo ORDER BY id DESC"
-        Set rs = conexao.Execute(sql)
+        Set rs = Server.CreateObject("ADODB.RecordSet")
+        rs.Open sql, conexao
         
         Response.Write "<table class='table table-bordered table-striped table-hover'>"
         Response.Write "<thead>"
@@ -71,14 +77,18 @@ Class Artigo
         Response.Write "</tbody>"
         Response.Write "</table>"
 
-    End Function
+        rs.Close()
+        Set rs = Nothing
+
+    End Sub
 
     Public Sub exibirTodosNoBlog()
         Dim rs
         Dim sql
 
         sql = "SELECT id, titulo, preview FROM artigo order by id desc"
-        Set rs = conexao.Execute(sql)
+        Set rs = Server.CreateObject("ADODB.RecordSet")
+        rs.Open sql, conexao
         
         Do While Not rs.EOF
             Response.Write "<div class='border-artigo mb-4'>"
@@ -94,6 +104,9 @@ Class Artigo
             rs.MoveNext
         Loop
 
+        rs.Close()
+        Set rs = Nothing
+
     End Sub
 
     Public Function encontrarPorId(id)
@@ -106,7 +119,6 @@ Class Artigo
 
         sql = "SELECT id, titulo, conteudo, versiculo, preview, data_criacao FROM artigo WHERE id = " & id
 
-        ' rs = conexao.Execute(sql)
         Set rs = Server.CreateObject("ADODB.RecordSet")
         rs.Open sql, conexao
 
@@ -140,8 +152,13 @@ Class Artigo
         Else
             ' Se nao encontrado
             artigoEncontrado("id") = "NOK"
+            ' Return
             Set encontrarPorId = artigoEncontrado
         End If
+
+        rs.Close()
+        Set rs = Nothing
+
     End Function
 
     Public Sub editar(id, titulo, conteudo, versiculo, preview, tag)
@@ -186,7 +203,8 @@ Class Artigo
         Dim rs
         
         sql = "SELECT t.id as tag_id, t.nome as tag_nome FROM artigo_tag at, tag t WHERE at.artigo_id = " & idArtigo & " AND at.tag_id = t.id"
-        Set rs = conexao.Execute(sql)
+        Set rs = Server.CreateObject("ADODB.RecordSet")
+        rs.Open sql, conexao
 
         Do While Not rs.EOF
             Response.Write "<a href='tag.asp?id=" & rs("tag_id") & "'>"
@@ -194,6 +212,9 @@ Class Artigo
             Response.Write "</a>"
             rs.MoveNext
         Loop
+
+        rs.Close()
+        Set rs = Nothing
 
     End Sub
 

@@ -27,7 +27,7 @@ Set objTagShow = objTag.encontrarPorId(Request.QueryString("id"))
   </div>
   <form action="editar-tag.asp" method="post">
     <div class="form-group">
-      <label for="nome">Nome da Tag:</label>
+      <label for="nome">Nome da Tag*:</label>
       <input type="text" class="form-control" name="nome" id="nome" value="<%=objTagShow("nome")%>" autofocus />
     </div>
     <div class="form-group">

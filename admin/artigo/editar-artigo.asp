@@ -30,11 +30,11 @@ Set objTag = New Tag
   </div>
   <form action="editar-artigo.asp" method="post">
     <div class="form-group">
-      <label for="titulo">Título do artigo:</label>
+      <label for="titulo">Título do artigo*:</label>
       <input type="text" class="form-control" name="titulo" id="titulo" value="<%=objArtigoShow("titulo")%>" autofocus />
     </div>
     <div class="form-group">
-      <label for="preview">Preview do artigo:</label>
+      <label for="preview">Preview do artigo*:</label>
       <input type="text" class="form-control" name="preview" id="preview" value="<%=objArtigoShow("preview")%>">
     </div>
     <div class="form-group">
