@@ -50,8 +50,9 @@ If metodo = "POST" Then
 
     If is_login_ok = True Then
         Session("login") = Request.Form("login")
-        Response.Redirect("/admin")
-        Response.End
+        redireciona("/admin")
+    Else
+        Sleep 5
     End If
 End If
 
@@ -68,8 +69,16 @@ End If
                 <label for="password">Senha:</label>
                 <input type="password" name="password" id="password" class="form-control">
             </div>
-            <button class="btn btn-primary">Login</button>
+            <button id="btn-login" class="btn btn-primary">Login</button>
         </form>
     </div>
 </div>
+<script>
+    let btnLogin = document.querySelector("#btn-login");
+    let form = document.querySelector("form");
+    btnLogin.addEventListener('click', (e) => {
+        btnLogin.disabled = true;
+        form.submit();
+    });
+</script>
 <!-- #include file="src/html_footer.asp" -->

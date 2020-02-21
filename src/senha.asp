@@ -54,4 +54,15 @@ Function Hash(HashType, Target)
 
     On Error GoTo 0
 End Function
+
+' ------------------------------------------------------------------------------------------
+' If login is incorrect, wait for some seconds
+' Solution from Guilherme Costa
+' on https://stackoverflow.com/questions/2237393/how-to-delay-a-response-in-classic-asp
+' ------------------------------------------------------------------------------------------
+Sub Sleep(seconds)
+    Set oShell = Server.CreateObject("WScript.Shell")
+    cmd = "%COMSPEC% /c timeout " & seconds & " /nobreak"
+    oShell.Run cmd,0,1
+End Sub
 %>

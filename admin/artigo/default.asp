@@ -12,5 +12,7 @@ Set objArtigo = New Artigo
 <!-- #include file="../../src/html_header.asp" -->
       <h1><a href="../">Administração</a> | Artigos</h1>
       <a href="adicionar-artigo.asp" class="btn btn-primary mb-2">Adicionar Artigo</a>
-      <% objArtigo.exibirTodosADM() %>
+      <div class="table-responsive">
+            <% objArtigo.exibirTodosADM() %>
+      </div>
 <!-- #include file="../../src/html_footer.asp" -->

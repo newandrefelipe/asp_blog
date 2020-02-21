@@ -12,5 +12,7 @@ Set objTag = New Tag
 <!-- #include file="../../src/html_header.asp" -->
       <h1><a href="../">Administração</a> | Tags</h1>
       <a href="/admin/tag/adicionar-tag.asp" class="btn btn-primary mb-2">Adicionar Tag</a>
-      <% objTag.exibirTodosADM() %>
+      <div class="table-responsive">
+            <% objTag.exibirTodosADM() %>
+      </div>
 <!-- #include file="../../src/html_footer.asp" -->
