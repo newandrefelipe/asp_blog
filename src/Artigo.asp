@@ -97,7 +97,7 @@ Class Artigo
         Dim sql_tag
         Dim artigoEncontrado
 
-        sql = "SELECT id, titulo, conteudo, versiculo, preview FROM artigo WHERE id = " & id
+        sql = "SELECT id, titulo, conteudo, versiculo, preview, data_criacao FROM artigo WHERE id = " & id
 
         ' rs = conexao.Execute(sql)
         Set rs = Server.CreateObject("ADODB.RecordSet")
@@ -114,6 +114,7 @@ Class Artigo
             artigoEncontrado("conteudo") = rs("conteudo")
             artigoEncontrado("versiculo") = rs("versiculo")
             artigoEncontrado("preview") = rs("preview")
+            artigoEncontrado("data_criacao") = rs("data_criacao")
 
             sql_tag = "SELECT t.id FROM tag t, artigo_tag at WHERE at.artigo_id = " & id & " AND t.id = at.tag_id"
             Set rs_tag = Server.CreateObject("ADODB.recordset")

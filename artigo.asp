@@ -18,6 +18,7 @@ End If
 <h1><a href="/" class="link-titulo-blog">Blog do André Felipe</a></h1>
 <div class="border-artigo">
     <h2 class="titulo-artigo"><%=objArtigoShow("titulo")%></h2>
+    <p><span class="badge badge-secondary">Publicado em: <%=Mid(objArtigoShow("data_criacao"), 1, 10)%></span></p>
     <p><%=objArtigoShow("conteudo")%></p>
     <p>
     <%

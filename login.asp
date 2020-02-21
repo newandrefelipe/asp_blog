@@ -59,7 +59,7 @@ End If
         <form action="login.asp" method="post">
             <div class="form-group">
                 <label for="login">Email:</label>
-                <input type="text" name="login" id="login" class="form-control" value="adm" autofocus>
+                <input type="text" name="login" id="login" class="form-control" autofocus>
             </div>
             <div class="form-group">
                 <label for="password">Senha:</label>
