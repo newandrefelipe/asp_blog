@@ -1,4 +1,5 @@
+<!-- #include file="src/redireciona.asp" -->
 <%
 Session.Abandon()
-Response.redirect("/")
+redireciona("/")
 %>
