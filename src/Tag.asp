@@ -29,6 +29,8 @@ Class Tag
         Dim sql
         sql = "DELETE FROM tag WHERE id = " & id
         conexao.Execute(sql)
+        sql = "DELETE FROM artigo_tag WHERE tag_id = " & id
+        conexao.Execute(sql)
     End Sub
 
     Public Sub exibirTodosADM()

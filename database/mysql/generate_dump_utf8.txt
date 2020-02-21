@@ -1,0 +1,1 @@
+mysqldump -u root –proot --default-character-set=utf8 -N --routines --skip-triggers --databases asp_blog > c:/tmp/asp_blog.sql

@@ -195,6 +195,8 @@ Class Artigo
         Dim sql
         sql = "DELETE FROM artigo WHERE id = " & id
         conexao.Execute(sql)
+        sql = "DELETE FROM artigo_tag WHERE artigo_id = " & id
+        conexao.Execute(sql)
     End Sub
 
     Public Sub buscarTagsDoArtigo(idArtigo)
