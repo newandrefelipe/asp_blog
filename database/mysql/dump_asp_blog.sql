@@ -119,7 +119,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'adm','4ad3249044bacce3753bfd66b7d0d9ce','Administrador');
+INSERT INTO `usuario` VALUES (1,'adm','b09c600fddc573f117449b3723f23d64','Administrador');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
