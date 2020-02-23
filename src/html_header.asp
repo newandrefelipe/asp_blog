@@ -11,12 +11,10 @@
   <body>
     <div class="container">
       <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-2 d-flex justify-content-between">
-
         <div class="float-left">
           <a class="navbar-brand" href="/">Home</a>
-          <a class="navbar-brand" href="/artigo.asp?id=2">Sobre</a>
+          <a class="navbar-brand" href="/article.asp?id=2">Sobre</a>
         </div>
-
         <%
           If Session("login") = "" Then
         %>

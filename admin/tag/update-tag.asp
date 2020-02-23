@@ -1,34 +1,34 @@
 <!-- #include file="../../src/Tag.asp" -->
-<!-- #include file="../../src/redireciona.asp" -->
+<!-- #include file="../../src/redirects.asp" -->
 <!-- #include file="../../src/check_login.asp" -->
 <%
 check_login()
 
-Dim metodo
+Dim method
 Dim objTag
 Dim objTagShow
 
-metodo = Request.ServerVariables("REQUEST_METHOD")
+method = Request.ServerVariables("REQUEST_METHOD")
 
-If (metodo = "POST") Then
+If (method = "POST") Then
   Set objTag = New Tag
-  objTag.editar Request.Form("id"), Request.Form("nome")
+  objTag.update Request.Form("id"), Request.Form("name")
 
-  redireciona("/admin/tag")
+  redirect("/admin/tag")
 End If
 
 Set objTag = New Tag
-Set objTagShow = objTag.encontrarPorId(Request.QueryString("id"))
+Set objTagShow = objTag.findById(Request.QueryString("id"))
 %>
 <!-- #include file="../../src/html_header.asp" -->
   <h1>Editar Tag</h1>
   <div id="error-messages" class="alert alert-danger d-none" role="alert">
     Atenção: existem campos obrigatórios que não foram preenchidos.
   </div>
-  <form action="editar-tag.asp" method="post">
+  <form action="update-tag.asp" method="post">
     <div class="form-group">
-      <label for="nome">Nome da Tag*:</label>
-      <input type="text" class="form-control" name="nome" id="nome" value="<%=objTagShow("nome")%>" autofocus />
+      <label for="name">Nome da Tag*:</label>
+      <input type="text" class="form-control" name="name" id="name" value="<%=objTagShow("name")%>" autofocus />
     </div>
     <div class="form-group">
       <input type="hidden" name="id" value="<%=objTagShow("id")%>" />
@@ -43,7 +43,7 @@ Set objTagShow = objTag.encontrarPorId(Request.QueryString("id"))
     let errorMessages = document.querySelector("#error-messages");
 
     btnCadastrar.addEventListener("click", function(e) {
-      let formNome = document.querySelector("#nome").value;
+      let formNome = document.querySelector("#name").value;
 
       if (formNome.trim() == "") {
         e.preventDefault();

@@ -1,0 +1,22 @@
+<script language="vbscript" runat="server">
+
+Sub Application_OnStart
+    Application("SiteName") = "Blog do André Felipe"
+    Application("ConnectionStringMySQL") = "Driver={MySQL ODBC 8.0 ANSI Driver};Server=localhost;Database=asp_blog;User=root;Password=root;Option=3;"
+    Application("ConnectionStringSQLite") = "DRIVER=SQLite3 ODBC Driver;Database=C:\dev\work\asp_blog\database\sqlite\blog.sqlite;LongNames=0;Timeout=1000;NoTXN=0;SyncPragma=NORMAL;StepAPI=0;"
+End Sub
+
+Sub Session_OnStart
+	Application.Lock
+	Application("ActiveVisitors") = (Application("ActiveVisitors") + 1)
+	Application("TotalVisitors") = (Application("TotalVisitors") + 1)
+	Application.UnLock
+End Sub
+
+Sub Session_OnEnd
+	Application.Lock
+	Application("ActiveVisitors") = (Application("ActiveVisitors") - 1)
+	Application.UnLock
+End Sub
+
+</script>

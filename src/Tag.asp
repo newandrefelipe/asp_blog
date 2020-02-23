@@ -1,91 +1,92 @@
-<!-- #include file="../config/config.asp" -->
+<!-- #include file="../src/Utils.asp" -->
 <%
 Class Tag
 
-    Private conexao
+    Private p_Connection
 
     Private Sub Class_Initialize()
-        Set conexao = openConnection()
+        Set p_Connection = openConnection()
     End Sub
 
     Private Sub Class_Terminate()
-        conexao.Close()
-        Set conexao = Nothing
+        p_Connection.Close()
+        Set p_Connection = Nothing
     End Sub
 
-    Public Sub adicionar(nome)
+    Public Sub create(name)
         Dim sql
-        sql = "INSERT INTO tag (nome) VALUES('" & nome & "')"
-        conexao.Execute(sql)
+        sql = "INSERT INTO tag (nome) VALUES('" & name & "')"
+        p_Connection.Execute(sql)
     End Sub
 
-    Public Sub editar(id, nome)
+    Public Sub update(id, name)
         Dim sql
-        sql = "UPDATE tag SET nome = '" & nome & "' WHERE id = " & id
-        conexao.Execute(sql)
+        sql = "UPDATE tag SET nome = '" & name & "' WHERE id = " & id
+        p_Connection.Execute(sql)
     End Sub
 
-    Public Sub remover(id)
+    Public Sub delete(id)
         Dim sql
         sql = "DELETE FROM tag WHERE id = " & id
-        conexao.Execute(sql)
+        p_Connection.Execute(sql)
         sql = "DELETE FROM artigo_tag WHERE tag_id = " & id
-        conexao.Execute(sql)
+        p_Connection.Execute(sql)
     End Sub
 
-    Public Sub exibirTodosADM()
+    Public Sub showAllADM()
         Dim rs
         Dim sql
+        Dim strResponse
 
         sql = "SELECT * FROM tag ORDER BY id DESC"
         Set rs = Server.CreateObject("ADODB.RecordSet")
-        rs.Open sql, conexao
+        rs.Open sql, p_Connection
         
-        Response.Write "<table class='table table-bordered table-striped table-hover'>"
-        Response.Write "<thead>"
-        Response.Write "<tr><th>Id</th><th>Nome</th><th></th></tr>"
-        Response.Write "</thead>"
-        Response.Write "<tbody>"
+        strResponse = "<table class='table table-bordered table-striped table-hover'>"
+        strResponse = strResponse & "<thead>"
+        strResponse = strResponse & "<tr><th>Id</th><th>Nome</th><th></th></tr>"
+        strResponse = strResponse & "</thead>"
+        strResponse = strResponse & "<tbody>"
         Do While Not rs.EOF
-            Response.Write "<tr>"
-            Response.Write "<td>" & rs("id") & "</td>"
-            Response.Write "<td><a href='editar-tag.asp?id=" & rs("id") & "'>" & rs("nome") & "</a></td>"
-            Response.Write "<td>" & "<a href='excluir-tag.asp?id=" & rs("id") & "' class='btn btn-danger'>Remover</a>" & "</td>"
-            Response.Write "</tr>"
+            strResponse = strResponse & "<tr>"
+            strResponse = strResponse & "<td>" & rs("id") & "</td>"
+            strResponse = strResponse & "<td><a href='update-tag.asp?id=" & rs("id") & "'>" & rs("nome") & "</a></td>"
+            strResponse = strResponse & "<td>" & "<a href='delete-tag.asp?id=" & rs("id") & "' class='btn btn-danger'>Remover</a>" & "</td>"
+            strResponse = strResponse & "</tr>"
             rs.MoveNext
         Loop
-        Response.Write "</tbody>"
-        Response.Write "</table>"
+        strResponse = strResponse & "</tbody>"
+        strResponse = strResponse & "</table>"
+        Response.Write strResponse
 
         rs.Close()
         Set rs = Nothing
-
     End Sub
 
-    Public Function encontrarPorId(id)
-
+    Public Function findById(id)
         Dim rs
         Dim sql
-        Dim tagEncontrada
+        Dim tagFound
 
         sql = "SELECT id, nome FROM tag WHERE id = " & id
 
         Set rs = Server.CreateObject("ADODB.RecordSet")
-        rs.Open sql, conexao
+        rs.Open sql, p_Connection
 
-        Set tagEncontrada = Server.CreateObject("Scripting.Dictionary")
-        tagEncontrada("id") = rs("id")
-        tagEncontrada("nome") = rs("nome")
+        Set tagFound = Server.CreateObject("Scripting.Dictionary")
+        tagFound("id") = rs("id")
+        tagFound("name") = rs("nome")
 
         rs.Close()
         Set rs = Nothing
 
         ' Return
-        Set encontrarPorId = tagEncontrada
+        Set findById = tagFound
 
+        Set tagFound = Nothing
     End Function
 
-    Public Sub getTagsOptions(id_selecionado)
+    Public Sub getTagsOptions(selected_id)
 
         Dim sql
         Dim rs
@@ -93,11 +94,11 @@ Class Tag
 
         sql = "SELECT id, nome FROM tag ORDER BY nome ASC"
         Set rs = Server.CreateObject("ADODB.RecordSet")
-        rs.Open sql, conexao
+        rs.Open sql, p_Connection
 
         Response.Write "<option value=''>Selecione...</option>"
         Do While Not rs.EOF
-            If rs("id") = id_selecionado Then
+            If rs("id") = selected_id Then
                 selected = "selected"
             End If
 
@@ -110,32 +111,34 @@ Class Tag
         Set rs = Nothing
     End Sub
 
-    Public Sub exibirArtigosDaTag(id_tag)
+    Public Sub displayTagArticles(id_tag)
         Dim rs
         Dim sql
+        Dim strResponse
 
         sql = "SELECT a.id as id_artigo, a.titulo, a.preview FROM artigo a, artigo_tag at WHERE at.tag_id = " & id_tag & " AND at.artigo_id = a.id ORDER BY id_artigo DESC"
 
         Set rs = Server.CreateObject("ADODB.RecordSet")
-        rs.Open sql, conexao
+        rs.Open sql, p_Connection
         
+        strResponse = ""
         Do While Not rs.EOF
-            Response.Write "<div class='border-artigo mb-4'>"
-            Response.Write "<h2>"
-            Response.Write "<a href='artigo.asp?id=" & rs("id_artigo") & "'>"
-            Response.Write rs("titulo")
-            Response.Write "</a>"
-            Response.Write "</h2>"
-            Response.Write "<p>"
-            Response.Write rs("preview")
-            Response.Write "</p>"
-            Response.Write "</div>"
+            strResponse = strResponse & "<div class='article-border mb-4'>"
+            strResponse = strResponse & "<h2>"
+            strResponse = strResponse & "<a href='article.asp?id=" & rs("id_artigo") & "'>"
+            strResponse = strResponse & rs("titulo")
+            strResponse = strResponse & "</a>"
+            strResponse = strResponse & "</h2>"
+            strResponse = strResponse & "<p>"
+            strResponse = strResponse & rs("preview")
+            strResponse = strResponse & "</p>"
+            strResponse = strResponse & "</div>"
             rs.MoveNext
         Loop
+        Response.Write strResponse
 
         rs.Close()
         Set rs = Nothing
-
     End Sub
 
 End Class

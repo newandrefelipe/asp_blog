@@ -1,18 +1,16 @@
-<!-- #include file="../../config/config.asp" -->
-<!-- #include file="../../src/Artigo.asp" -->
+<!-- #include file="../../src/ArticleClass.asp" -->
 <!-- #include file="../../src/check_login.asp" -->
 <%
 check_login()
 
-Dim objArtigo
-Dim artigos
+Dim objArticle
 
-Set objArtigo = New Artigo
+Set objArticle = New ArticleClass
 %>
 <!-- #include file="../../src/html_header.asp" -->
       <h1><a href="../">Administração</a> | Artigos</h1>
-      <a href="adicionar-artigo.asp" class="btn btn-primary mb-2">Adicionar Artigo</a>
+      <a href="add-article.asp" class="btn btn-primary mb-2">Adicionar Artigo</a>
       <div class="table-responsive">
-            <% objArtigo.exibirTodosADM() %>
+            <% objArticle.showAllADM() %>
       </div>
 <!-- #include file="../../src/html_footer.asp" -->

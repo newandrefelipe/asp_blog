@@ -23,7 +23,7 @@ h2 {
   box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-.border-artigo {
+.article-border {
   padding: 20px;
   background-color: #fff;
   box-shadow: 1px 2px 4px rgba(119, 119, 119, 0.5);
@@ -43,15 +43,15 @@ h2 {
   height: 400px;
 }
 
-.titulo-artigo {
+.title-article {
   color: #007bff;
 }
 
-.link-titulo-blog {
+.link-blog-title {
   color: rgb(255, 145, 0);
 }
 
-.box-versiculo {
+.verse-box {
   border: 2px solid rgb(255, 145, 0);
   padding: 20px;
   background-color: rgb(246, 221, 188);
@@ -59,6 +59,6 @@ h2 {
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
 }
 
-.pagina-atual {
+.current-page {
   color: rgb(255, 145, 0);
 }

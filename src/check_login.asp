@@ -1,8 +1,8 @@
-<!-- #include file="redireciona.asp" -->
+<!-- #include file="redirects.asp" -->
 <%
 Sub check_login()
     If Session("login") = "" Then
-        redireciona("/login.asp")
+        redirect("/login.asp")
     End If
 End Sub
 %>

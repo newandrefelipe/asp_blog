@@ -1,33 +1,29 @@
-<!-- #include file="config/config.asp" -->
-<!-- #include file="src/Artigo.asp" -->
+<!-- #include file="src/ArticleClass.asp" -->
 <%
-Dim objArtigo
-Dim artigos
-Dim metodo
-Dim pagina
+Dim objArticle
+Dim method
+Dim page
 
-Set objArtigo = New Artigo
+Set objArticle = New ArticleClass
 
-metodo = Request.ServerVariables("REQUEST_METHOD")
+method = Request.ServerVariables("REQUEST_METHOD")
 
-If metodo = "GET" Then
-  pagina = Request.QueryString("pagina")
-  If Trim(pagina) = "" Then
-    pagina = 1
+If method = "GET" Then
+  page = Request.QueryString("page")
+  If Trim(page) = "" Then
+    page = 1
   End If
 End If
 %>
 <!-- #include file="src/html_header.asp" -->
-      
-      <h1>Blog do André Felipe</h1>
-      <p>
-            <%
-            ' artigos = objArtigo.exibirTodosNoBlog()
-            objArtigo.listarPaginado(pagina)
-            %>
-      </p>
-      <p>
-            <% objArtigo.mostrarPaginas(pagina) %>
-      </p>
-      
+    <h1><%=Application("SiteName")%></h1>
+    <p>
+    <%
+        ' objArticle.showAllHomePage()
+        objArticle.listPaged(page)
+    %>
+    </p>
+    <p>
+    <% objArticle.showPages(page) %>
+    </p>
 <!-- #include file="src/html_footer.asp" -->

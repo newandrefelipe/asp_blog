@@ -1,30 +1,30 @@
-<!-- #include file="../../src/Artigo.asp" -->
-<!-- #include file="../../src/redireciona.asp" -->
+<!-- #include file="../../src/ArticleClass.asp" -->
+<!-- #include file="../../src/redirects.asp" -->
 <!-- #include file="../../src/check_login.asp" -->
 <%
 check_login()
 
-Dim metodo
-Dim objArtigo
+Dim method
+Dim objArticle
 
-metodo = Request.ServerVariables("REQUEST_METHOD")
+method = Request.ServerVariables("REQUEST_METHOD")
 
-If (metodo = "POST") Then
-  Set objArtigo = New Artigo
-  objArtigo.remover Request.Form("id")
+If (method = "POST") Then
+  Set objArticle = New ArticleClass
+  objArticle.delete Request.Form("id")
 
-  redireciona("/admin/artigo")
+  redirect("/admin/article")
 End If
 %>
 <!-- #include file="../../src/html_header.asp" -->
 <p>Confirma a exclusão do artigo?</p>
-<form method="post" action="excluir-artigo.asp">
+<form method="post" action="delete-article.asp">
     <div class="form-group">
       <input type="hidden" name="id" value="<%=Request.QueryString("id")%>">
       <button class="btn btn-primary">Remover</button>
     </div>
     <div class="form-group">
-      <a href="/admin/artigo">Voltar</a>
+      <a href="/admin/article">Voltar</a>
     </div>
 </form>
 <!-- #include file="../../src/html_footer.asp" -->
