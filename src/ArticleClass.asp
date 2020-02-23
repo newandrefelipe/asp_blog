@@ -19,7 +19,7 @@ Class ArticleClass
         Dim sql_insert
         Dim last_number
 
-        sql = "INSERT INTO artigo (titulo, conteudo, versiculo, preview, data_criacao) VALUES('" & title & "', '" & content & "', '" & verse & "', '" & preview & "', NOW())"
+        sql = "INSERT INTO article (title, content, verse, preview, creation_date) VALUES('" & title & "', '" & content & "', '" & verse & "', '" & preview & "', NOW())"
         p_Connection.Execute(sql)
 
         last_number = findLastNumber()
@@ -36,7 +36,7 @@ Class ArticleClass
         Dim rs
         Dim last_number
 
-        sql = "SELECT id FROM artigo ORDER BY id DESC LIMIT 1"
+        sql = "SELECT id FROM article ORDER BY id DESC LIMIT 1"
         Set rs = Server.CreateObject("ADODB.RecordSet")
         rs.Open sql, p_Connection
 
@@ -54,7 +54,7 @@ Class ArticleClass
         Dim sql
         Dim strResponse
 
-        sql = "SELECT * FROM artigo ORDER BY id DESC"
+        sql = "SELECT * FROM article ORDER BY id DESC"
         Set rs = Server.CreateObject("ADODB.RecordSet")
         rs.Open sql, p_Connection
         
@@ -66,9 +66,9 @@ Class ArticleClass
         Do While Not rs.EOF
             strResponse = strResponse & "<tr>"
             strResponse = strResponse & "<td>" & rs("id") & "</td>"
-            strResponse = strResponse & "<td><a href='update-article.asp?id=" & rs("id") & "'>" & rs("titulo") & "</a></td>"
-            strResponse = strResponse & "<td>" & Mid(rs("data_criacao"), 1, 10) & "</td>"
-            strResponse = strResponse & "<td>" & Mid(rs("data_atualizacao"), 1, 10) & "</td>"
+            strResponse = strResponse & "<td><a href='update-article.asp?id=" & rs("id") & "'>" & rs("title") & "</a></td>"
+            strResponse = strResponse & "<td>" & Mid(rs("creation_date"), 1, 10) & "</td>"
+            strResponse = strResponse & "<td>" & Mid(rs("update_date"), 1, 10) & "</td>"
             strResponse = strResponse & "<td>" & "<a href='delete-article.asp?id=" & rs("id") & "' class='btn btn-danger'>Remover</a>" & "</td>"
             strResponse = strResponse & "</tr>"
             rs.MoveNext
@@ -88,7 +88,7 @@ Class ArticleClass
         Dim sql
         Dim strResponse
 
-        sql = "SELECT id, titulo, preview FROM artigo order by id desc"
+        sql = "SELECT id, title, preview FROM article order by id desc"
         Set rs = Server.CreateObject("ADODB.RecordSet")
         rs.Open sql, p_Connection
         strResponse = ""
@@ -97,7 +97,7 @@ Class ArticleClass
             strResponse = strResponse & "<div class='article-border mb-4'>"
             strResponse = strResponse & "<h2>"
             strResponse = strResponse & "<a href='article.asp?id=" & rs("id") & "'>"
-            strResponse = strResponse & rs("titulo")
+            strResponse = strResponse & rs("title")
             strResponse = strResponse & "</a>"
             strResponse = strResponse & "</h2>"
             strResponse = strResponse & "<p>"
@@ -123,7 +123,7 @@ Class ArticleClass
         Dim articleFound
         Dim recordFound
 
-        sql = "SELECT id, titulo, conteudo, versiculo, preview, data_criacao FROM artigo WHERE id = " & id
+        sql = "SELECT id, title, content, verse, preview, creation_date FROM article WHERE id = " & id
 
         Set rs = Server.CreateObject("ADODB.RecordSet")
         rs.Open sql, p_Connection
@@ -135,13 +135,13 @@ Class ArticleClass
         Do While Not rs.EOF
             recordFound = True
             articleFound("id") = rs("id")
-            articleFound("title") = rs("titulo")
-            articleFound("content") = rs("conteudo")
-            articleFound("verse") = rs("versiculo")
+            articleFound("title") = rs("title")
+            articleFound("content") = rs("content")
+            articleFound("verse") = rs("verse")
             articleFound("preview") = rs("preview")
-            articleFound("creation_date") = rs("data_criacao")
+            articleFound("creation_date") = rs("creation_date")
 
-            sql_tag = "SELECT t.id FROM tag t, artigo_tag at WHERE at.artigo_id = " & id & " AND t.id = at.tag_id"
+            sql_tag = "SELECT t.id FROM tag t, article_tag at WHERE at.article_id = " & id & " AND t.id = at.tag_id"
             Set rs_tag = Server.CreateObject("ADODB.recordset")
             rs_tag.Open sql_tag, p_Connection
 
@@ -167,11 +167,11 @@ Class ArticleClass
         Set articleFound = Nothing
     End Function
 
-    Public Sub update(id, titulo, conteudo, versiculo, preview, tag)
+    Public Sub update(id, title, content, verse, preview, tag)
         Dim sql
         Dim sql_insert_tag
 
-        sql = "UPDATE artigo SET titulo = '" & titulo & "', conteudo = '" & conteudo & "', versiculo = '" & versiculo & "', preview = '" & preview & "', data_atualizacao = NOW() WHERE id = " & id
+        sql = "UPDATE article SET title = '" & title & "', content = '" & content & "', verse = '" & verse & "', preview = '" & preview & "', update_date = NOW() WHERE id = " & id
         p_Connection.Execute(sql)
 
         ' Removes all tags from the article
@@ -183,39 +183,39 @@ Class ArticleClass
         End If
     End Sub
 
-    Private Sub insertArticleToTag(id_artigo, id_tag)
+    Private Sub insertArticleToTag(id_article, id_tag)
         Dim sql_insert_tag
 
-        sql_insert_tag = "INSERT INTO artigo_tag (artigo_id, tag_id) VALUES(" & id_artigo & ", " & id_tag & ")"
+        sql_insert_tag = "INSERT INTO article_tag (article_id, tag_id) VALUES(" & id_article & ", " & id_tag & ")"
         p_Connection.Execute(sql_insert_tag)
     End Sub
 
-    Private Sub removeTagsFromArticle(id_artigo)
+    Private Sub removeTagsFromArticle(id_article)
         Dim sql
 
-        sql = "DELETE FROM artigo_tag WHERE artigo_id = " & id_artigo
+        sql = "DELETE FROM article_tag WHERE article_id = " & id_article
         p_Connection.Execute(sql)
     End Sub
 
     Public Sub delete(id)
         Dim sql
-        sql = "DELETE FROM artigo WHERE id = " & id
+        sql = "DELETE FROM article WHERE id = " & id
         p_Connection.Execute(sql)
-        sql = "DELETE FROM artigo_tag WHERE artigo_id = " & id
+        sql = "DELETE FROM article_tag WHERE article_id = " & id
         p_Connection.Execute(sql)
     End Sub
 
-    Public Sub searchArticleTags(idArtigo)
+    Public Sub searchArticleTags(idarticle)
         Dim sql
         Dim rs
         
-        sql = "SELECT t.id as tag_id, t.nome as tag_nome FROM artigo_tag at, tag t WHERE at.artigo_id = " & idArtigo & " AND at.tag_id = t.id"
+        sql = "SELECT t.id as tag_id, t.name as tag_name FROM article_tag at, tag t WHERE at.article_id = " & idarticle & " AND at.tag_id = t.id"
         Set rs = Server.CreateObject("ADODB.RecordSet")
         rs.Open sql, p_Connection
 
         Do While Not rs.EOF
             Response.Write "<a href='tag.asp?id=" & rs("tag_id") & "'>"
-            Response.Write "<span class='badge badge-primary'>" & rs("tag_nome") & "</span>"
+            Response.Write "<span class='badge badge-primary'>" & rs("tag_name") & "</span>"
             Response.Write "</a>"
             rs.MoveNext
         Loop
@@ -235,7 +235,7 @@ Class ArticleClass
         initialPage = TOTAL_PER_PAGE * page
 
         Set rs = Server.CreateObject("ADODB.RecordSet")
-        sql = "SELECT id, titulo, preview FROM artigo ORDER BY id DESC LIMIT " & initialPage & ", " & TOTAL_PER_PAGE
+        sql = "SELECT id, title, preview FROM article ORDER BY id DESC LIMIT " & initialPage & ", " & TOTAL_PER_PAGE
         rs.Open sql, p_Connection
 
         strResponse = ""
@@ -244,7 +244,7 @@ Class ArticleClass
             strResponse = strResponse & "<div class='article-border mb-4'>"
             strResponse = strResponse & "<h2>"
             strResponse = strResponse & "<a href='article.asp?id=" & rs("id") & "'>"
-            strResponse = strResponse & rs("titulo")
+            strResponse = strResponse & rs("title")
             strResponse = strResponse & "</a>"
             strResponse = strResponse & "</h2>"
             strResponse = strResponse & "<p>"
@@ -268,7 +268,7 @@ Class ArticleClass
         Dim rest ' Rest of Division
         Dim classCurrentPage
 
-        sql = "SELECT COUNT(id) AS total FROM artigo"
+        sql = "SELECT COUNT(id) AS total FROM article"
         Set rs = Server.CreateObject("ADODB.RecordSet")
         rs.Open sql, p_Connection
 

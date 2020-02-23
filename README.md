@@ -1,6 +1,6 @@
 # ASP Blog
 
-Blog developed in ASP Classic and MySQL/SQLite databases.
+Small blog built using VBScript in Classic ASP and MySQL/SQLite.
 
 ## Installation
 

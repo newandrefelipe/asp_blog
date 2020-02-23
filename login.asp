@@ -23,7 +23,7 @@ Function performSystemLogin(login, password)
     login_ok = False
     Set connection = openConnection()
 
-    sql = "SELECT * FROM usuario WHERE login_ = '" & login & "' AND senha = '" & md5_password & "'"
+    sql = "SELECT * FROM user_ WHERE login_ = '" & login & "' AND password = '" & md5_password & "'"
     Set rs = Server.CreateObject("ADODB.RecordSet")
     rs.Open sql, connection
 

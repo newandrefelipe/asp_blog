@@ -14,7 +14,7 @@ method = Request.ServerVariables("REQUEST_METHOD")
 
 If (method = "POST") Then
   Set objArticle = New ArticleClass
-  objArticle.update Request.Form("id"), Request.Form("title"), Request.Form("conteudo"), Request.Form("versiculo"), Request.Form("preview"), Request.Form("tag")
+  objArticle.update Request.Form("id"), Request.Form("title"), Request.Form("content"), Request.Form("verse"), Request.Form("preview"), Request.Form("tag")
 
   redirect("/admin/article")
 End If
@@ -38,24 +38,24 @@ Set objTag = New Tag
       <input type="text" class="form-control" name="preview" id="preview" value="<%=objArticleShow("preview")%>">
     </div>
     <div class="form-group">
-      <label for="conteudo">Conteúdo do artigo:</label>
+      <label for="content">Conteúdo do artigo:</label>
       <textarea
         type="text"
         class="form-control"
-        name="conteudo"
-        id="conteudo"
+        name="content"
+        id="content"
         rows="10"
         cols="100"
       ><%=objArticleShow("content")%></textarea>
     </div>
 
     <div class="form-group">
-      <label for="versiculo">Versículo do artigo:</label>
+      <label for="verse">Versículo do artigo:</label>
       <textarea
         type="text"
         class="form-control"
-        name="versiculo"
-        id="versiculo"
+        name="verse"
+        id="verse"
         rows="7"
         cols="100"
       ><%=objArticleShow("verse")%></textarea>

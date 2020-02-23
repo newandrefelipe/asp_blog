@@ -15,13 +15,13 @@ Class Tag
 
     Public Sub create(name)
         Dim sql
-        sql = "INSERT INTO tag (nome) VALUES('" & name & "')"
+        sql = "INSERT INTO tag (name) VALUES('" & name & "')"
         p_Connection.Execute(sql)
     End Sub
 
     Public Sub update(id, name)
         Dim sql
-        sql = "UPDATE tag SET nome = '" & name & "' WHERE id = " & id
+        sql = "UPDATE tag SET name = '" & name & "' WHERE id = " & id
         p_Connection.Execute(sql)
     End Sub
 
@@ -29,7 +29,7 @@ Class Tag
         Dim sql
         sql = "DELETE FROM tag WHERE id = " & id
         p_Connection.Execute(sql)
-        sql = "DELETE FROM artigo_tag WHERE tag_id = " & id
+        sql = "DELETE FROM article_tag WHERE tag_id = " & id
         p_Connection.Execute(sql)
     End Sub
 
@@ -50,7 +50,7 @@ Class Tag
         Do While Not rs.EOF
             strResponse = strResponse & "<tr>"
             strResponse = strResponse & "<td>" & rs("id") & "</td>"
-            strResponse = strResponse & "<td><a href='update-tag.asp?id=" & rs("id") & "'>" & rs("nome") & "</a></td>"
+            strResponse = strResponse & "<td><a href='update-tag.asp?id=" & rs("id") & "'>" & rs("name") & "</a></td>"
             strResponse = strResponse & "<td>" & "<a href='delete-tag.asp?id=" & rs("id") & "' class='btn btn-danger'>Remover</a>" & "</td>"
             strResponse = strResponse & "</tr>"
             rs.MoveNext
@@ -68,14 +68,14 @@ Class Tag
         Dim sql
         Dim tagFound
 
-        sql = "SELECT id, nome FROM tag WHERE id = " & id
+        sql = "SELECT id, name FROM tag WHERE id = " & id
 
         Set rs = Server.CreateObject("ADODB.RecordSet")
         rs.Open sql, p_Connection
 
         Set tagFound = Server.CreateObject("Scripting.Dictionary")
         tagFound("id") = rs("id")
-        tagFound("name") = rs("nome")
+        tagFound("name") = rs("name")
 
         rs.Close()
         Set rs = Nothing
@@ -92,7 +92,7 @@ Class Tag
         Dim rs
         Dim selected
 
-        sql = "SELECT id, nome FROM tag ORDER BY nome ASC"
+        sql = "SELECT id, name FROM tag ORDER BY name ASC"
         Set rs = Server.CreateObject("ADODB.RecordSet")
         rs.Open sql, p_Connection
 
@@ -102,7 +102,7 @@ Class Tag
                 selected = "selected"
             End If
 
-            Response.Write "<option value='" & rs("id") & "' " & selected & ">" & rs("nome") & "</option>"
+            Response.Write "<option value='" & rs("id") & "' " & selected & ">" & rs("name") & "</option>"
             selected = ""
             rs.MoveNext
         Loop
@@ -116,7 +116,7 @@ Class Tag
         Dim sql
         Dim strResponse
 
-        sql = "SELECT a.id as id_artigo, a.titulo, a.preview FROM artigo a, artigo_tag at WHERE at.tag_id = " & id_tag & " AND at.artigo_id = a.id ORDER BY id_artigo DESC"
+        sql = "SELECT a.id as id_article, a.title, a.preview FROM article a, article_tag at WHERE at.tag_id = " & id_tag & " AND at.article_id = a.id ORDER BY id_article DESC"
 
         Set rs = Server.CreateObject("ADODB.RecordSet")
         rs.Open sql, p_Connection
@@ -125,8 +125,8 @@ Class Tag
         Do While Not rs.EOF
             strResponse = strResponse & "<div class='article-border mb-4'>"
             strResponse = strResponse & "<h2>"
-            strResponse = strResponse & "<a href='article.asp?id=" & rs("id_artigo") & "'>"
-            strResponse = strResponse & rs("titulo")
+            strResponse = strResponse & "<a href='article.asp?id=" & rs("id_article") & "'>"
+            strResponse = strResponse & rs("title")
             strResponse = strResponse & "</a>"
             strResponse = strResponse & "</h2>"
             strResponse = strResponse & "<p>"
