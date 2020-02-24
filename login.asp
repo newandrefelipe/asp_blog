@@ -58,6 +58,7 @@ End If
 
 %>
 <!-- #include file="src/html_header.asp" -->
+<h1><%=Application("SiteName")%></h1>
 <div class="center-content">
     <div class="form-login">
         <form action="login.asp" method="post">
