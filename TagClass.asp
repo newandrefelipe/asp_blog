@@ -1,6 +1,6 @@
-<!-- #include file="../src/Utils.asp" -->
+<!-- #include file="Utils.asp" -->
 <%
-Class Tag
+Class TagClass
 
     Private p_Connection
 
@@ -50,8 +50,8 @@ Class Tag
         Do While Not rs.EOF
             strResponse = strResponse & "<tr>"
             strResponse = strResponse & "<td>" & rs("id") & "</td>"
-            strResponse = strResponse & "<td><a href='update-tag.asp?id=" & rs("id") & "'>" & rs("name") & "</a></td>"
-            strResponse = strResponse & "<td>" & "<a href='delete-tag.asp?id=" & rs("id") & "' class='btn btn-danger'>Remover</a>" & "</td>"
+            strResponse = strResponse & "<td><a href='admin_tag_update.asp?id=" & rs("id") & "'>" & rs("name") & "</a></td>"
+            strResponse = strResponse & "<td>" & "<a href='admin_tag_delete.asp?id=" & rs("id") & "' class='btn btn-danger'>Remover</a>" & "</td>"
             strResponse = strResponse & "</tr>"
             rs.MoveNext
         Loop

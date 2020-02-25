@@ -1,4 +1,4 @@
-<!-- #include file="../src/Utils.asp" -->
+<!-- #include file="Utils.asp" -->
 <%
 Class ArticleClass
     Private p_Connection
@@ -66,10 +66,10 @@ Class ArticleClass
         Do While Not rs.EOF
             strResponse = strResponse & "<tr>"
             strResponse = strResponse & "<td>" & rs("id") & "</td>"
-            strResponse = strResponse & "<td><a href='update-article.asp?id=" & rs("id") & "'>" & rs("title") & "</a></td>"
+            strResponse = strResponse & "<td><a href='admin_article_update.asp?id=" & rs("id") & "'>" & rs("title") & "</a></td>"
             strResponse = strResponse & "<td>" & Mid(rs("creation_date"), 1, 10) & "</td>"
             strResponse = strResponse & "<td>" & Mid(rs("update_date"), 1, 10) & "</td>"
-            strResponse = strResponse & "<td>" & "<a href='delete-article.asp?id=" & rs("id") & "' class='btn btn-danger'>Remover</a>" & "</td>"
+            strResponse = strResponse & "<td>" & "<a href='admin_article_delete.asp?id=" & rs("id") & "' class='btn btn-danger'>Remover</a>" & "</td>"
             strResponse = strResponse & "</tr>"
             rs.MoveNext
         Loop

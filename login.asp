@@ -1,10 +1,10 @@
-<!-- #include file="src/password.asp" -->
-<!-- #include file="src/Utils.asp" -->
-<!-- #include file="src/redirects.asp" -->
+<!-- #include file="password.asp" -->
+<!-- #include file="Utils.asp" -->
+<!-- #include file="redirects.asp" -->
 <%
 ' If logged in, redirect to an Administration
 If Not Session("login") = "" Then
-    redirect("/admin")
+    redirect("admin_default.asp")
 End If
 
 Dim method
@@ -50,14 +50,14 @@ If method = "POST" Then
 
     If is_login_ok = True Then
         Session("login") = Request.Form("login")
-        redirect("/admin")
+        redirect("admin_default.asp")
     Else
         Sleep 5
     End If
 End If
 
 %>
-<!-- #include file="src/html_header.asp" -->
+<!-- #include file="html_header.asp" -->
 <h1><%=Application("SiteName")%></h1>
 <div class="center-content">
     <div class="form-login">
@@ -82,4 +82,4 @@ End If
         form.submit();
     });
 </script>
-<!-- #include file="src/html_footer.asp" -->
+<!-- #include file="html_footer.asp" -->

@@ -1,6 +1,6 @@
-<!-- #include file="../../src/ArticleClass.asp" -->
-<!-- #include file="../../src/redirects.asp" -->
-<!-- #include file="../../src/check_login.asp" -->
+<!-- #include file="ArticleClass.asp" -->
+<!-- #include file="redirects.asp" -->
+<!-- #include file="check_login.asp" -->
 <%
 check_login()
 
@@ -13,18 +13,18 @@ If (method = "POST") Then
   Set objArticle = New ArticleClass
   objArticle.delete Request.Form("id")
 
-  redirect("/admin/article")
+  redirect("admin_article_default.asp")
 End If
 %>
-<!-- #include file="../../src/html_header.asp" -->
+<!-- #include file="html_header.asp" -->
 <p>Confirma a exclusão do artigo?</p>
-<form method="post" action="delete-article.asp">
+<form method="post" action="admin_article_delete.asp">
     <div class="form-group">
       <input type="hidden" name="id" value="<%=Request.QueryString("id")%>">
       <button class="btn btn-primary">Remover</button>
     </div>
     <div class="form-group">
-      <a href="/admin/article">Voltar</a>
+      <a href="admin_article_default.asp">Voltar</a>
     </div>
 </form>
-<!-- #include file="../../src/html_footer.asp" -->
+<!-- #include file="html_footer.asp" -->

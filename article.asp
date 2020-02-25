@@ -1,5 +1,5 @@
-<!-- #include file="src/ArticleClass.asp" -->
-<!-- #include file="src/redirects.asp" -->
+<!-- #include file="ArticleClass.asp" -->
+<!-- #include file="redirects.asp" -->
 <%
 Dim objArticle
 Dim objArticleShow
@@ -13,7 +13,7 @@ If objArticleShow("id") = "NOK" Then
 End If
 
 %>
-<!-- #include file="src/html_header.asp" -->
+<!-- #include file="html_header.asp" -->
 <h1><a href="/" class="link-blog-title"><%=Application("SiteName")%></a></h1>
 <div class="article-border">
     <h2 class="title-article"><%=objArticleShow("title")%></h2>
@@ -31,4 +31,4 @@ End If
     <% End If %>
 </div>
 <button onclick="goBack()" class="btn btn-primary mt-2">Voltar</button>
-<!-- #include file="src/html_footer.asp" -->
+<!-- #include file="html_footer.asp" -->

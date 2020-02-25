@@ -25,8 +25,8 @@
           Else
         %>
           <div class="float-right">
-            <a href="/admin" class="text-light justify-content-">Administração |</a>
-            <a href="/logout.asp" class="text-light">Logout</a>
+            <a href="admin_default.asp" class="text-light justify-content-">Administração |</a>
+            <a href="logout.asp" class="text-light">Logout</a>
           </div>
         <%
           End If

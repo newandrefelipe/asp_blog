@@ -1,4 +1,4 @@
-<!-- #include file="src/ArticleClass.asp" -->
+<!-- #include file="ArticleClass.asp" -->
 <%
 Dim objArticle
 Dim method
@@ -15,7 +15,7 @@ If method = "GET" Then
   End If
 End If
 %>
-<!-- #include file="src/html_header.asp" -->
+<!-- #include file="html_header.asp" -->
     <h1><%=Application("SiteName")%></h1>
     <p>
     <%
@@ -26,4 +26,4 @@ End If
     <p>
     <% objArticle.showPages(page) %>
     </p>
-<!-- #include file="src/html_footer.asp" -->
+<!-- #include file="html_footer.asp" -->
