@@ -293,5 +293,27 @@ Class ArticleClass
         Set rs = Nothing
     End Sub
 
+    Public Function getTotalArticles()
+        Dim rs
+        Dim sql
+        Dim count
+        count = 0
+
+        sql = "SELECT COUNT(id) AS total FROM article"
+        Set rs = Server.CreateObject("ADODB.RecordSet")
+
+        rs.Open sql, p_Connection
+
+        If Not rs.BOF And Not rs.BOF Then
+            count = rs("total")
+        End If
+
+        rs.Close()
+        Set rs = Nothing
+
+        ' Return
+        getTotalArticles = count
+    End Function
+
 End Class
 %>

@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="/assets/css/site.css">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <script src="https://kit.fontawesome.com/86f8fc9cfe.js" crossorigin="anonymous"></script>
   </head>
   <body>
     <div class="container">
