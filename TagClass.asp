@@ -163,5 +163,49 @@ Class TagClass
         getTotalTags = count
     End Function
 
+    Public Sub generateTagsChart()
+        Dim rs
+        Dim sql
+        Dim strResponse
+
+        sql = "SELECT count(t.id) AS total, t.name FROM tag t INNER JOIN article_tag at ON at.tag_id = t.id INNER JOIN article a ON a.id = at.article_id group by t.id"
+        Set rs = Server.CreateObject("ADODB.RecordSet")
+        rs.Open sql, p_Connection
+
+        strResponse = "["
+        Do While Not rs.EOF
+            strResponse = strResponse & "[ """ & rs("name") & """, "
+            strResponse = strResponse & rs("total") & "],"
+            rs.MoveNext
+        Loop
+        strResponse = strResponse & "]"
+        Response.Write strResponse
+
+        rs.Close()
+        Set rs = Nothing
+    End Sub
+
+    Public Sub generateVersesChart()
+        Dim rs
+        Dim sql
+        Dim strResponse
+
+        sql = "SELECT 'Não possui' AS 'Objeto', COUNT(a.id) AS 'Total' FROM article a WHERE a.verse = '<br>' UNION SELECT 'Possui', COUNT(a2.id) FROM article a2 WHERE NOT a2.verse = '<br>'"
+        Set rs = Server.CreateObject("ADODB.RecordSet")
+        rs.Open sql, p_Connection
+
+        strResponse = "["
+        Do While Not rs.EOF
+            strResponse = strResponse & "[ """ & rs("Objeto") & """, "
+            strResponse = strResponse & rs("Total") & "],"
+            rs.MoveNext
+        Loop
+        strResponse = strResponse & "]"
+        Response.Write strResponse
+
+        rs.Close()
+        Set rs = Nothing
+    End Sub
+
 End Class
 %>
