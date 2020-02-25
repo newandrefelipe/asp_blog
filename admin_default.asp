@@ -37,8 +37,8 @@ Set objTag = New TagClass
     // Set chart options
     var options = {
       title: "Artigos por Tag",
-      width: 400,
-      height: 300
+      width: 500,
+      height: 400
     };
 
     // Instantiate and draw our chart, passing in some options.
@@ -57,8 +57,8 @@ Set objTag = New TagClass
 
     var options = {
       title: "Artigos com Versículo",
-      width: 400,
-      height: 300
+      width: 500,
+      height: 400
     };
 
     var chart = new google.visualization.PieChart(
@@ -68,6 +68,7 @@ Set objTag = New TagClass
   }
 </script>
 <h1>Administração</h1>
+<h2 class="title-article">Dashboard</h2>
 <div>
   <div class="row">
     <div class="col-xl-4 col-lg-4 mb-4">
@@ -87,7 +88,6 @@ Set objTag = New TagClass
         </div>
       </div>
     </div>
-
     <div class="col-xl-4 col-lg-4 mb-4 mt-4">
       <div class="card text-white bg-primary" style="max-width: 18rem;">
         <div class="card-body">

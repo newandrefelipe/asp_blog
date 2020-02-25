@@ -8,7 +8,8 @@ Dim objArticle
 Set objArticle = New ArticleClass
 %>
 <!-- #include file="html_header.asp" -->
-      <h1><a href="admin_default.asp">Administração</a> | Artigos</h1>
+      <h1><a href="admin_default.asp">Administração</a></h1>
+      <h2 class="title-article">Artigos</h2>
       <a href="admin_article_add.asp" class="btn btn-primary mb-2">Adicionar Artigo</a>
       <div class="table-responsive">
             <% objArticle.showAllADM() %>
