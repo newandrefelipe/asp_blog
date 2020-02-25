@@ -1,8 +1,7 @@
-<!-- #include file="password.asp" -->
-<!-- #include file="Utils.asp" -->
+<!-- #include file="LoginClass.asp" -->
 <!-- #include file="redirects.asp" -->
 <%
-' If logged in, redirect to an Administration
+' If logged in, redirect to Administration page
 If Not Session("login") = "" Then
     redirect("admin_default.asp")
 End If
@@ -11,42 +10,15 @@ Dim method
 Dim is_login_ok
 Dim login
 Dim password
-
-Function performSystemLogin(login, password)
-    Dim rs
-    Dim sql
-    Dim connection
-    Dim login_ok
-    Dim md5_password
-    
-    md5_password = Hash("md5", password)
-    login_ok = False
-    Set connection = openConnection()
-
-    sql = "SELECT * FROM user_ WHERE login_ = '" & login & "' AND password = '" & md5_password & "'"
-    Set rs = Server.CreateObject("ADODB.RecordSet")
-    rs.Open sql, connection
-
-    ' If found user, login is OK
-    If Not rs.EOF And Not rs.BOF Then
-        login_ok = True
-    End If
-
-    rs.Close()
-    Set rs = Nothing
-    connection.Close()
-    Set connection = Nothing
-
-    ' Return
-    performSystemLogin = login_ok
-End Function
+Dim objLogin
 
 method = Request.ServerVariables("REQUEST_METHOD")
 
 If method = "POST" Then
     login = Request.Form("login")
     password = Request.Form("password")
-    is_login_ok = performSystemLogin(login, password)
+    Set objLogin = New LoginClass
+    is_login_ok = objLogin.performSystemLogin(login, password)
 
     If is_login_ok = True Then
         Session("login") = Request.Form("login")
