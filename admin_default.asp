@@ -93,7 +93,7 @@ Set objTag = New TagClass
         <div class="card-body">
           <div class="row">
             <div class="col">
-              <i class="far fa-newspaper fa-5x"></i>
+              <i class="far fa-newspaper fa-3x"></i>
             </div>
             <div class="col">
               <p class="card-text">
@@ -111,7 +111,7 @@ Set objTag = New TagClass
         <div class="card-body">
           <div class="row">
             <div class="col">
-              <i class="fas fa-tags fa-5x"></i>
+              <i class="fas fa-tags fa-3x"></i>
             </div>
             <div class="col">
               <p class="card-text">
